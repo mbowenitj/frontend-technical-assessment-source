@@ -1,0 +1,76 @@
+/**
+ * REM Spacing Helper
+ * 
+ * This SCSS file provides utility classes for setting margin and padding
+ * with different spacing values and sides. The spacing values are in rem units.
+ * 
+ * Usage:
+ * 
+ * 1. Margin:
+ *    - .m-{value}: Applies margin to all sides
+ *    - .m-t-{value}: Applies margin to the top side
+ *    - .m-b-{value}: Applies margin to the bottom side
+ *    - .m-l-{value}: Applies margin to the left side
+ *    - .m-r-{value}: Applies margin to the right side
+ *    - .m-x-{value}: Applies margin to the left and right sides
+ *    - .m-y-{value}: Applies margin to the top and bottom sides
+ * 
+ * 2. Padding:
+ *    - .p-{value}: Applies padding to all sides
+ *    - .p-t-{value}: Applies padding to the top side
+ *    - .p-b-{value}: Applies padding to the bottom side
+ *    - .p-l-{value}: Applies padding to the left side
+ *    - .p-r-{value}: Applies padding to the right side
+ *    - .p-x-{value}: Applies padding to the left and right sides
+ *    - .p-y-{value}: Applies padding to the top and bottom sides
+ * 
+ * Example:
+ * <div class="m-2 p-3">
+ *   <!-- Your content here -->
+ * </div>
+ * 
+ * This will apply a margin of 1rem (2 * 0.5rem) and padding of 1.5rem (3 * 0.5rem) to the div.
+ */
+
+$spaceamounts: (0, 1, 2, 3, 4, 5, 6);
+$sides: (top, bottom, left, right, x, y);
+
+@each $space in $spaceamounts {
+  .m-#{$space} {
+    margin: #{$space * 0.5}rem !important;
+  }
+  .p-#{$space} {
+    padding: #{$space * 0.5}rem !important;
+  }
+  @each $side in $sides {
+    @if $side == y {
+      .m-#{str-slice($side, 0, 1)}-#{$space} {
+        margin-top: #{$space * 0.5}rem !important;
+        margin-bottom: #{$space * 0.5}rem !important;
+      }
+
+      .p-#{str-slice($side, 0, 1)}-#{$space} {
+        padding-top: #{$space * 0.5}rem !important;
+        padding-bottom: #{$space * 0.5}rem !important;
+      }
+    } @else if $side == x {
+      .m-#{str-slice($side, 0, 1)}-#{$space} {
+        margin-left: #{$space * 0.5}rem !important;
+        margin-right: #{$space * 0.5}rem !important;
+      }
+
+      .p-#{str-slice($side, 0, 1)}-#{$space} {
+        padding-left: #{$space * 0.5}rem !important;
+        padding-right: #{$space * 0.5}rem !important;
+      }
+    } @else {
+      .m-#{str-slice($side, 0, 1)}-#{$space} {
+        margin-#{$side}: #{$space * 0.5}rem !important;
+      }
+
+      .p-#{str-slice($side, 0, 1)}-#{$space} {
+        padding-#{$side}: #{$space * 0.5}rem !important;
+      }
+    }
+  }
+}

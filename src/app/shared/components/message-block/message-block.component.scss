@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+.message-block {
+  display: flex;
+  border-radius: 0.3rem;
+  padding: 0.4rem;
+  width: 100%;
+
+  &.error {
+    border: 2px solid var(--ion-color-danger);
+    background-color: rgba(var(--ion-color-danger-rgb), 0.2);
+  }
+
+  &.info {
+    border: 2px solid var(--ion-color-tertiary);
+    background-color: rgba(var(--ion-color-tertiary-rgb), 0.2);
+  }
+
+  &.warning {
+    border: 2px solid var(--ion-color-warning);
+    background-color: rgba(var(--ion-color-warning-rgb), 0.2);
+  }
+
+  &.contrast {
+    background-color: rgba(var(--ion-color-light-rgb), 0.7);
+  }
+
+  ion-icon {
+    font-size: 1.4rem;
+    margin-right: 0.2rem;
+    --ionicon-stroke-width: 3rem;
+
+    .ionicon {
+      height: auto;
+    }
+  }
+
+  span {
+    font-size: 0.8rem;
+  }
+}
+.no-border {
+  border: none !important;
+}

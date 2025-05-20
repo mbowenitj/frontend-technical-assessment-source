@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "465541829840",
+    "project_id": "mama-money-frontend-assessment",
+    "storage_bucket": "mama-money-frontend-assessment.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465541829840:android:b054a1af2cfcfd47c2bad5",
+        "android_client_info": {
+          "package_name": "za.co.mamamoney.assessments.frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1xXQRXv1xqNVs-tz3FZnVD6cpbRwpPkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

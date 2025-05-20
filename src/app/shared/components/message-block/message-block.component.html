@@ -1,0 +1,34 @@
+<div
+  class="message-block ion-text-left"
+  [class.no-border]="!hasBorder()"
+  [ngClass]="[showBackground() ? displayType() : '', contrastBackground() ? 'contrast' : '', class()]"
+>
+  <div class="icon-wrap">
+    <ion-icon
+      [color]="
+        iconColor()
+          ? iconColor()
+          : displayType() === 'info'
+            ? 'tertiary'
+            : displayType() === 'warning'
+              ? 'warning'
+              : 'danger'
+      "
+      [name]="icon() ? icon() : displayType() === 'info' ? 'information-circle-outline' : 'alert-circle-outline'"
+      slot="start"
+    ></ion-icon>
+  </div>
+  <ion-text
+    [color]="
+      textColor()
+        ? textColor()
+        : displayType() === 'info'
+          ? 'tertiary'
+          : displayType() === 'warning'
+            ? 'warning'
+            : 'danger'
+    "
+  >
+    <span><ng-content></ng-content></span>
+  </ion-text>
+</div>

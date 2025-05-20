@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mama Money Frontend Technical Assessment</string>
+    <string name="title_activity_main">Mama Money Frontend Technical Assessment</string>
+    <string name="package_name">za.co.mamamoney.assessments.frontend</string>
+    <string name="custom_url_scheme">za.co.mamamoney.assessments.frontend</string>
+</resources>

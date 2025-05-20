@@ -1,0 +1,52 @@
+/**
+ * Width and Height Helper
+ * 
+ * This SCSS file provides utility classes for setting width and height
+ * with different spacing values and units. The spacing values are in rem units and percentages.
+ * 
+ * Usage:
+ * 
+ * 1. Width:
+ *    - .w-{value}: Applies width in rem units
+ *    - .w-p-{value}: Applies width in percentage
+ * 
+ * 2. Height:
+ *    - .h-{value}: Applies height in rem units
+ *    - .h-p-{value}: Applies height in percentage
+ * 
+ * Example:
+ * <div class="w-2 h-3">
+ *   <!-- Your content here -->
+ * </div>
+ * 
+ * This will apply a width of 1rem (2 * 0.5rem) and height of 1.5rem (3 * 0.5rem) to the div.
+ */
+
+$spaceamounts: (0, 1, 2, 3, 4, 5, 6);
+$percentages: (10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+
+@each $space in $spaceamounts {
+  .w-#{$space} {
+    width: #{$space * 0.5}rem !important;
+  }
+  .h-#{$space} {
+    height: #{$space * 0.5}rem !important;
+  }
+}
+
+@each $percentage in $percentages {
+  .w-p-#{$percentage} {
+    width: #{$percentage}#{'%'} !important;
+  }
+  .h-p-#{$percentage} {
+    height: #{$percentage}#{'%'} !important;
+  }
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.h-auto {
+  height: auto !important;
+}

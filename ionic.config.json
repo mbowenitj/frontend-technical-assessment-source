@@ -1,0 +1,7 @@
+{
+  "name": "Mama Money Frontend Technical Assessment",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

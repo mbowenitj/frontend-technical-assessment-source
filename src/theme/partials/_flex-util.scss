@@ -1,0 +1,119 @@
+/**
+ * Flex Alignment Helper
+ * 
+ * This SCSS file provides utility classes for flexbox alignment and direction.
+ * It generates classes for different flex directions and alignment properties.
+ * 
+ * Usage:
+ * 
+ * 1. Flex Directions:
+ *    - .flex-row: Applies 'display: flex' and 'flex-direction: row'
+ *    - .flex-row-rev: Applies 'display: flex' and 'flex-direction: row-reverse'
+ *    - .flex-col: Applies 'display: flex' and 'flex-direction: column'
+ *    - .flex-col-rev: Applies 'display: flex' and 'flex-direction: column-reverse'
+ * 
+ * 2. Justify Content:
+ *    - .justify-flex-start: Applies 'justify-content: flex-start'
+ *    - .justify-center: Applies 'justify-content: center'
+ *    - .justify-flex-end: Applies 'justify-content: flex-end'
+ *    - .justify-space-between: Applies 'justify-content: space-between'
+ * 
+ * 3. Align Items:
+ *    - .align-items-flex-start: Applies 'align-items: flex-start'
+ *    - .align-items-center: Applies 'align-items: center'
+ *    - .align-items-flex-end: Applies 'align-items: flex-end'
+ * 
+ * 4. Align Self:
+ *    - .align-self-flex-start: Applies 'align-self: flex-start'
+ *    - .align-self-center: Applies 'align-self: center'
+ *    - .align-self-flex-end: Applies 'align-self: flex-end'
+ * 
+ * 5. Align Content:
+ *    - .align-content-flex-start: Applies 'align-content: flex-start'
+ *    - .align-content-center: Applies 'align-content: center'
+ *    - .align-content-flex-end: Applies 'align-content: flex-end'
+ * 
+ * Example:
+ * <div class="flex-row justify-center align-items-center">
+ *   <!-- Your content here -->
+ * </div>
+ * 
+ * This will create a flex container with row direction, centered content, and centered items.
+ */
+
+$directions: ("reverse", "regular");
+$orientations: ("row", "column");
+$alignments: ("justify-content", "align-items", "align-self", "align-content");
+$justify-content: ("flex-start", "center", "flex-end", "space-between");
+$align-items: ("flex-start", "center", "flex-end");
+
+.flex {
+  display: flex;
+}
+
+// Flex Directions
+@each $orientation in $orientations {
+  @each $dir in $directions {
+    @if $dir == "reverse" {
+      .flex-#{str-slice($orientation, 0, 3)}-#{str-slice($dir, 0, 3)} {
+        display: flex;
+        flex-direction: #{$orientation}-#{$dir};
+      }
+    } @else {
+      .flex-#{str-slice($orientation, 0, 3)} {
+        display: flex;
+        flex-direction: #{$orientation};
+      }
+    }
+  }
+}
+
+@each $alignment in $alignments {
+  // * Justify Content
+  @if $alignment == "justify-content" {
+    @each $justify in $justify-content {
+      @if $justify == "flex-start" {
+        .#{str-slice($alignment,0,7)}-#{str-slice($justify, 6)} {
+          justify-content: flex-start;
+        }
+      } @else if $justify == "flex-end" {
+        .#{str-slice($alignment,0,7)}-#{str-slice($justify, 6)} {
+          justify-content: flex-end;
+        }
+      } @else if $justify == "space-between" {
+        .#{str-slice($alignment,0,7)}-#{$justify} {
+          justify-content: space-between;
+        }
+      } @else {
+        .#{str-slice($alignment,0,7)}-#{$justify} {
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  // * Align Content
+  @if $alignment ==
+    "align-content" or
+    $alignment ==
+    "align-self" or
+    $alignment ==
+    "align-items"
+  {
+    @each $align in $align-items {
+      @if $align == "flex-start" {
+        .#{$alignment}-#{str-slice($align, 6)} {
+          #{$alignment}: flex-start;
+        }
+      } @else if $align == "flex-end" {
+        .#{$alignment}-#{str-slice($align, 6)} {
+          #{$alignment}: flex-end;
+        }
+      } @else {
+        .#{$alignment}-#{$align} {
+          #{$alignment}: center;
+        }
+      }
+    }
+  }
+}
