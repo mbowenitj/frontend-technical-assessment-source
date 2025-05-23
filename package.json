@@ -43,7 +43,7 @@
     "@capacitor/status-bar": "6.0.2",
     "@ionic/angular": "^8.0.0",
     "animejs": "^3.2.2",
-    "braze-cordova-sdk": "github:braze-inc/braze-cordova-sdk#master",
+    "braze-cordova-sdk": "github:Appboy/appboy-cordova-sdk",
     "date-fns": "^2.28.0",
     "dotenv": "^16.4.7",
     "ionicons": "^7.2.1",

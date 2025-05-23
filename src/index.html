@@ -20,15 +20,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
+    <!-- Only include cordova scripts if on a native platform -->
     <script type="text/javascript">
-      (function () {
-        var b = document.createElement('script');
-        b.type = 'text/javascript';
-        b.async = true;
-        b.src = 'https://js.appboycdn.com/web-sdk/4.4/appboy.min.js'; // or latest version
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(b, s);
-      })();
+      if (window.location.hostname === 'localhost') {
+        var cordovaScript = document.createElement('script');
+        cordovaScript.setAttribute('src', 'cordova.js');
+        document.head.appendChild(cordovaScript);
+      }
     </script>
   </head>
 
