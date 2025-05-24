@@ -1,3 +1,4 @@
+// complete.page.ts
 import { Component } from '@angular/core';
 import { HeaderComponent } from '@components/header/header.component';
 import { Router } from '@angular/router';
@@ -16,12 +17,12 @@ import { MmCardComponent } from '@components/mm-card/mm-card.component';
         <p class="m-b-2">Congratulations on completing the Mama Money Frontend Technical Assessment!</p>
         <p class="m-b-2">We value your feedback and would appreciate your thoughts on the assessment experience.</p>
         <p>
-          <i><strong>Note:</strong> Providing feedback is optional but greatly appreciated</i>
+          <strong>Note:</strong> Providing feedback is optional but greatly appreciated
         </p>
       </app-mm-card>
 
-      <ion-button (click)="openSurvey()" color="secondary" expand="block" size="large" fill="solid" class="m-t-4">
-        Share Your Feedback
+      <ion-button (click)="openSurvey()" color="primary" expand="block" size="large" fill="solid" class="m-t-4">
+        SHARE YOUR FEEDBACK
       </ion-button>
     </ion-content>
   `,
