@@ -4,6 +4,7 @@ import { HeaderComponent } from '@components/header/header.component';
 import { MmCardComponent } from '@components/mm-card/mm-card.component';
 import { IonHeader, IonContent, IonButton } from '@ionic/angular/standalone';
 import { Capacitor } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 declare global {
   interface Window {
@@ -31,7 +32,7 @@ declare global {
       </app-mm-card>
 
       <ion-button (click)="sendInboxTestEvent()" color="primary" expand="block" size="large" fill="solid" class="m-t-4">
-        Send Test Event
+        SEND TEST EVENT
       </ion-button>
     </ion-content>
   `,
@@ -42,7 +43,10 @@ declare global {
 export class HomePage {
   private brazeReady = false;
 
-  constructor(private platform: Platform) {
+  constructor(
+    private platform: Platform,
+    private router: Router
+  ) {
     this.initializeBraze().catch((err) => console.warn('Braze init failed:', err));
   }
 
@@ -50,42 +54,38 @@ export class HomePage {
     return Capacitor.isNativePlatform() && !!window.cordova;
   }
 
-private async initializeBraze(): Promise<void> {
-  await this.platform.ready();
+  private async initializeBraze(): Promise<void> {
+    await this.platform.ready();
 
-  return new Promise<void>((resolve, reject) => {
-    document.addEventListener(
-      'deviceready',
-      async () => {
-        console.log('✅ deviceready fired');
+    return new Promise<void>((resolve, reject) => {
+      document.addEventListener(
+        'deviceready',
+        async () => {
+          console.log('✅ deviceready fired');
 
-        // Delay to allow plugin injection
-        await new Promise(res => setTimeout(res, 300));
+          // Delay to allow plugin injection
+          await new Promise(res => setTimeout(res, 300));
 
-        console.log('Cordova:', window.cordova);
-        console.log('Plugins:', window?.cordova?.plugins);
-        console.log('Braze plugin:', window?.cordova?.plugins?.brazePlugin);
+          if (!window.cordova?.plugins?.brazePlugin) {
+            console.error('❌ Braze plugin not ready');
+            reject('Braze plugin not ready');
+            return;
+          }
 
-        if (!window.cordova?.plugins?.brazePlugin) {
-          console.error('❌ Braze plugin not ready');
-          reject('Braze plugin not ready');
-          return;
-        }
-
-        try {
-          window.cordova.plugins.brazePlugin.initializeBrazeSDK();
-          this.brazeReady = true;
-          console.log('✅ Braze SDK initialized');
-          resolve();
-        } catch (err) {
-          console.error('❌ Braze initialization error:', err);
-          reject(err);
-        }
-      },
-      { once: true }
-    );
-  });
-}
+          try {
+            window.cordova.plugins.brazePlugin.initializeBrazeSDK();
+            this.brazeReady = true;
+            console.log('✅ Braze SDK initialized');
+            resolve();
+          } catch (err) {
+            console.error('❌ Braze initialization error:', err);
+            reject(err);
+          }
+        },
+        { once: true }
+      );
+    });
+  }
 
   async sendInboxTestEvent() {
     if (!this.brazeReady) {
