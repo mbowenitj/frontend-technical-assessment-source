@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, OnInit, input, signal } from '@angular/core';
-import { IonButton, IonIcon, IonAccordion, ModalController } from '@ionic/angular';
+import { Component, AfterViewInit, OnInit, input, signal } from '@angular/core';
+import { IonButton, IonIcon, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { notificationsOutline } from 'ionicons/icons';
 import anime, { AnimeInstance } from 'animejs';
-import { InboxComponent } from '@components/inbox/inbox.component';
-import { IonicModule } from '@ionic/angular';
+import { InboxComponent } from '../inbox/inbox.component';
 
 @Component({
   selector: 'app-inbox-button',
@@ -39,11 +38,11 @@ import { IonicModule } from '@ionic/angular';
       }
     `
   ],
-  imports: [IonicModule],
-  standalone: true
+  standalone: true,
+  imports: [IonButton, IonIcon]
 })
 export class InboxButtonComponent implements AfterViewInit, OnInit {
-  readonly slot = input<IonAccordion['toggleIconSlot']>();
+  readonly slot = input<string>('end');
   unreadMessages = signal(false);
   private shakeAnimation?: AnimeInstance;
 
@@ -60,17 +59,26 @@ export class InboxButtonComponent implements AfterViewInit, OnInit {
       backdropDismiss: true
     });
     await modal.present();
+
+    modal.onDidDismiss().then(() => {
+      this.checkUnreadMessages();
+    });
   }
 
   ngOnInit(): void {
+    this.checkUnreadMessages();
+    setInterval(() => this.checkUnreadMessages(), 30000);
+  }
+
+  private checkUnreadMessages(): void {
     const plugin = (window as any).cordova?.plugins?.brazePlugin;
 
     if (plugin) {
-      plugin.getUnreadInboxMessagesCount(
+      plugin.getContentCardsUnviewedCount(
         (count: number) => {
-          if (count > 0) {
-            this.unreadMessages.set(true);
-            this.shakeAnimation?.restart();
+          this.unreadMessages.set(count > 0);
+          if (count > 0 && this.shakeAnimation) {
+            this.shakeAnimation.restart();
           }
         },
         (err: any) => {
